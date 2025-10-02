@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Enemy
+  - DamageBox
   layers:
   - Default
   - TransparentFX
@@ -18,9 +20,9 @@ TagManager:
   - Lightning
   - Water
   - Fire
+  - Ice
   - Pierce
   - Crush
-  - 
   - 
   - 
   - 
