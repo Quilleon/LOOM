@@ -74,7 +74,10 @@ public class PlayerCharacter : MonoBehaviour
 
     private void UpdatePhysicsMovement()
     {
-        _rb.linearVelocity = _movementVector * _movementSpeed;
+        var rightMovement = transform.right * _movementVector.x;
+        var forwardMovement = transform.forward * _movementVector.y;
+        
+        _rb.linearVelocity = (rightMovement + forwardMovement).normalized * _movementSpeed;
     }
     
     #region Camera Look
