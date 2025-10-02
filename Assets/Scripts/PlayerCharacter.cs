@@ -43,14 +43,14 @@ public class PlayerCharacter : MonoBehaviour
     
     private Rigidbody _rb;
     
-    private float _lookSensitivity;
-    private float _movementSpeed = 5f;
-    private float _jumpForce;
+    [SerializeField] private float _movementSpeed = 5f;
+    [SerializeField] private float _jumpForce = 8;
     private float _health;
-    
-    
-    
-    
+
+    private float _inputBuffer;
+
+    [SerializeField] private GameObject _rightArm;
+    [SerializeField] private Upgrade[] _rightUpgrades;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -65,6 +65,11 @@ public class PlayerCharacter : MonoBehaviour
     {
         UpdateInputs();
         UpdateLookDirection(_lookVector, true);
+
+        if (_rightPunchPressed)
+        {
+            Punch(_rightUpgrades);
+        }
     }
 
     private void FixedUpdate()
@@ -78,6 +83,11 @@ public class PlayerCharacter : MonoBehaviour
         var forwardMovement = transform.forward * _movementVector.y;
         
         _rb.linearVelocity = (rightMovement + forwardMovement).normalized * _movementSpeed;
+    }
+
+    private void Punch(Upgrade[] upgrades)
+    {
+        Instantiate(upgrades[0].spawningPrefab, _rightArm.transform.GetChild(0).position, Quaternion.identity);
     }
     
     #region Camera Look
