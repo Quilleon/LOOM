@@ -49,8 +49,8 @@ public class PlayerCharacter : MonoBehaviour
 
     private float _inputBuffer;
 
-    [SerializeField] private GameObject _rightArm;
-    [SerializeField] private Upgrade[] _rightUpgrades;
+    [SerializeField] private GameObject _rightArm, _leftArm;
+    [SerializeField] private Upgrade[] _rightUpgrades, _leftUpgrades;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -68,9 +68,29 @@ public class PlayerCharacter : MonoBehaviour
 
         if (_rightPunchPressed)
         {
-            Punch(_rightUpgrades);
+            print("Right Hand Punch");
+            Punch(_rightUpgrades, _rightArm);
+        }
+
+        if (_leftPunchPressed)
+        {
+            print("Left Hand Punch");
+            Punch(_leftUpgrades, _leftArm);
+        }
+
+        if (_jumpPressed && IsGrounded())
+        {
+            print("Jump");
+            _rb.linearVelocity += Vector3.up * _jumpForce;
         }
     }
+    
+    private void Punch(Upgrade[] upgrades, GameObject arm)
+    {
+        var armSpawnPoint = arm.transform.GetChild(0);
+        Instantiate(upgrades[0].spawningPrefab, armSpawnPoint.position, _camera.rotation);
+    }
+    
 
     private void FixedUpdate()
     {
@@ -81,14 +101,12 @@ public class PlayerCharacter : MonoBehaviour
     {
         var rightMovement = transform.right * _movementVector.x;
         var forwardMovement = transform.forward * _movementVector.y;
+        var xyMovement = (rightMovement + forwardMovement).normalized * _movementSpeed;
         
-        _rb.linearVelocity = (rightMovement + forwardMovement).normalized * _movementSpeed;
+        _rb.linearVelocity = new Vector3(xyMovement.x,  _rb.linearVelocity.y, xyMovement.z);
     }
 
-    private void Punch(Upgrade[] upgrades)
-    {
-        Instantiate(upgrades[0].spawningPrefab, _rightArm.transform.GetChild(0).position, Quaternion.identity);
-    }
+    
     
     #region Camera Look
     
@@ -121,4 +139,9 @@ public class PlayerCharacter : MonoBehaviour
     }
     
     #endregion
+
+    private bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.2f, LayerMask.GetMask("Ground"));
+    }
 }
