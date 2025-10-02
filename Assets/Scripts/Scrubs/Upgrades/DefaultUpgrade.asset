@@ -15,4 +15,5 @@ MonoBehaviour:
   atkBonus: 5
   atkMultiplier: 1
   spawningPrefab: {fileID: 4133355088545788563, guid: fddd6071b5d357b4f838f11e5c3d125d, type: 3}
+  despawningTime: 0.2
   jumpAbility: 0

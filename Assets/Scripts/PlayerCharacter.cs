@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -88,7 +89,15 @@ public class PlayerCharacter : MonoBehaviour
     private void Punch(Upgrade[] upgrades, GameObject arm)
     {
         var armSpawnPoint = arm.transform.GetChild(0);
-        Instantiate(upgrades[0].spawningPrefab, armSpawnPoint.position, _camera.rotation);
+        var ability = Instantiate(upgrades[0].spawningPrefab, armSpawnPoint.position, _camera.rotation);
+        StartCoroutine(DestroyAbility(ability, upgrades[0].despawningTime));
+    }
+
+    // Destroy Projectile/Damagebox
+    private IEnumerator DestroyAbility(GameObject obj, float destroyTime)
+    {
+        yield return new WaitForSeconds(destroyTime);
+        Destroy(obj);
     }
     
 
