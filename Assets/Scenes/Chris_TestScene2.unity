@@ -710,7 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a7ac5ecc5d9c4a45bfbdf8a24d037bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageEffect
-  hitEffectsScrub: {fileID: 11400000, guid: f22a6237b85270e49a011889398ff9a5, type: 2}
+  effectsScrub: {fileID: 11400000, guid: f22a6237b85270e49a011889398ff9a5, type: 2}
 --- !u!54 &534573006
 Rigidbody:
   m_ObjectHideFlags: 0
