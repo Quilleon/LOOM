@@ -9,6 +9,8 @@ public class DamageEffect : MonoBehaviour
 {
     void Start()
     {
+        _enemyBehaviour = GetComponent<EnemyBehaviour>();
+        
         _effectsSpawnParent = transform.GetChild(0).GetChild(0);
     }
 
@@ -17,6 +19,7 @@ public class DamageEffect : MonoBehaviour
         
     }
 
+    private EnemyBehaviour _enemyBehaviour;
     
     [SerializeField] private HitEffects effectsScrub;
     
@@ -29,6 +32,13 @@ public class DamageEffect : MonoBehaviour
         print("Entered");
         if (other.gameObject.CompareTag("DamageBox"))
         {
+            if (_enemyBehaviour)
+            {
+                var incomingDamage = 20; // other.GetComponent<>()..;
+                _enemyBehaviour.TakeDamage(incomingDamage);
+                
+            }
+            
             int hitEffect;
             
             switch (other.gameObject.layer)

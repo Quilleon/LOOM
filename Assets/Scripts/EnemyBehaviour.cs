@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 
@@ -9,26 +10,35 @@ public class EnemyBehaviour : MonoBehaviour
     private Animator _anim;
     private Rigidbody _rb;
 
+    [SerializeField] private float maxHealth = 100, currentHealth;
+    
+    
     [SerializeField] private float walkSpeed = 3;
     private bool activated, stopVeloctiy;
-    private bool dead, plannedAttack;
+    private bool dead, deathAnimPlaying, plannedAttack;
     
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
         
         _anim = GetComponentInChildren<Animator>();
+        
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        currentHealth = math.clamp(currentHealth, 0, maxHealth);
+        if (!dead && currentHealth <= 0)
+        {
+            dead = true;
+        }
     }
 
     private void FixedUpdate()
     {
-        if (!activated && CanSeePlayer())
+        if (!dead && !activated && CanSeePlayer())
         {
             print("Activated");
             activated = true;
@@ -39,6 +49,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (!stopVeloctiy)
             {
                 //print("Walking towards player");
+                // TODO: Stop before reaching player
                 _rb.linearVelocity = transform.forward.normalized * walkSpeed;
             }
 
@@ -51,11 +62,18 @@ public class EnemyBehaviour : MonoBehaviour
         }
         
         // Animations
-        if (dead)
+        if (dead && !deathAnimPlaying)
         {
+            // Stops ongoing attacks
+            StopAllCoroutines();
+            
+            deathAnimPlaying = true;
+            activated = false;
+            stopVeloctiy = true;
+            
             _anim.Play("Death");
         }
-        else if (!activated)
+        else if (!dead && !activated)
         {
             print("Not activated");
             _anim.Play("Idle");
@@ -74,7 +92,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             //print(_rb.linearVelocity.magnitude);
             //Debug.Log("Standing still for some reason");
-            _anim.Play("Idle");
+            //_anim.Play("Idle");
         }
     }
 
@@ -111,11 +129,6 @@ public class EnemyBehaviour : MonoBehaviour
         stopVeloctiy = false;
     }
 
-    private void Behaviour()
-    {
-        
-    }
-
     private bool PlayerInReach()
     {
         return true;
@@ -126,5 +139,14 @@ public class EnemyBehaviour : MonoBehaviour
         
         
         return true;
+    }
+
+
+    public void TakeDamage(float damage)
+    {
+        if (dead)
+            return;
+        
+        currentHealth -= damage;
     }
 }
