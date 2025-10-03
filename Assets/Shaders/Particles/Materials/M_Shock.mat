@@ -52,7 +52,7 @@ Material:
     - _Speed: 0.4
     - _Stretch: 1.22
     m_Colors:
-    - _Tint: {r: 84.8186, g: 86.68576, b: 145.31859, a: 0}
+    - _Tint: {r: 42.4093, g: 43.34288, b: 72.659294, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2454914710017170613
