@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Upgrades
   atkBonus: 1
   atkMultiplier: 1
-  spawningPrefab: {fileID: 333966069293187720, guid: f030b70273eb246438a1e23f4a484202, type: 3}
+  spawningPrefab: {fileID: 8702969536512728936, guid: 5f610999e4424d945a3a8750583ead60, type: 3}
   despawningTime: 0.4
   jumpAbility: 0

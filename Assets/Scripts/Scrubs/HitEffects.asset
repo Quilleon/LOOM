@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HitEffects
   hitEffects:
   - {fileID: 4963867063995227237, guid: 3eab7b166dfcc1149ab7d6448f89c86b, type: 3}
-  - {fileID: 0}
+  - {fileID: 4963867063995227237, guid: c963be03e65091045a74789c5abbea37, type: 3}
   - {fileID: 4963867063995227237, guid: 30260a4c36bc59c4e8825442b466c3a6, type: 3}
   - {fileID: 4963867063995227237, guid: 490bae28a8ce1e14cb5cc3e144ab12fd, type: 3}
   - {fileID: 4963867063995227237, guid: 21b12c69a5e15d9419cb9d5a00689faf, type: 3}
   - {fileID: 0}
   lingeringEffects:
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 9189290391331004035, guid: 1ab755f325052044db680dcc1484f5fd, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

@@ -59,6 +59,9 @@ public class PlayerCharacter : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         
         _camera = transform.GetChild(0);
+        
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
