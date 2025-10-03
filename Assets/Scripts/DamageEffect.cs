@@ -16,7 +16,11 @@ public class DamageEffect : MonoBehaviour
 
     void Update()
     {
-        
+        if (_enemyBehaviour.isDead)
+        {
+            // Destroy Lingering Effects
+            Destroy(_effectsSpawnParent.GetChild(0).gameObject);
+        }
     }
 
     private EnemyBehaviour _enemyBehaviour;

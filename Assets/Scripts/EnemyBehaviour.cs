@@ -15,8 +15,8 @@ public class EnemyBehaviour : MonoBehaviour
     
     [SerializeField] private float walkSpeed = 3;
     private bool activated, stopVeloctiy;
-    private bool dead, deathAnimPlaying, plannedAttack;
-    
+    public bool isDead;
+    private bool deathAnimPlaying, plannedAttack;
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -30,15 +30,15 @@ public class EnemyBehaviour : MonoBehaviour
     void Update()
     {
         currentHealth = math.clamp(currentHealth, 0, maxHealth);
-        if (!dead && currentHealth <= 0)
+        if (!isDead && currentHealth <= 0)
         {
-            dead = true;
+            isDead = true;
         }
     }
 
     private void FixedUpdate()
     {
-        if (!dead && !activated && CanSeePlayer())
+        if (!isDead && !activated && CanSeePlayer())
         {
             print("Activated");
             activated = true;
@@ -62,7 +62,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         
         // Animations
-        if (dead && !deathAnimPlaying)
+        if (isDead && !deathAnimPlaying)
         {
             // Stops ongoing attacks
             StopAllCoroutines();
@@ -73,7 +73,7 @@ public class EnemyBehaviour : MonoBehaviour
             
             _anim.Play("Death");
         }
-        else if (!dead && !activated)
+        else if (!isDead && !activated)
         {
             print("Not activated");
             _anim.Play("Idle");
@@ -144,7 +144,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (dead)
+        if (isDead)
             return;
         
         currentHealth -= damage;
