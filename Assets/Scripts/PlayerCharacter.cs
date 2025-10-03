@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -43,14 +44,14 @@ public class PlayerCharacter : MonoBehaviour
     
     private Rigidbody _rb;
     
-    private float _lookSensitivity;
-    private float _movementSpeed = 5f;
-    private float _jumpForce;
+    [SerializeField] private float _movementSpeed = 5f;
+    [SerializeField] private float _jumpForce = 8;
     private float _health;
-    
-    
-    
-    
+
+    private float _inputBuffer;
+
+    [SerializeField] private GameObject _rightArm, _leftArm;
+    [SerializeField] private Upgrade[] _rightUpgrades, _leftUpgrades;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -65,7 +66,40 @@ public class PlayerCharacter : MonoBehaviour
     {
         UpdateInputs();
         UpdateLookDirection(_lookVector, true);
+
+        if (_rightPunchPressed)
+        {
+            print("Right Hand Punch");
+            Punch(_rightUpgrades, _rightArm);
+        }
+
+        if (_leftPunchPressed)
+        {
+            print("Left Hand Punch");
+            Punch(_leftUpgrades, _leftArm);
+        }
+
+        if (_jumpPressed && IsGrounded())
+        {
+            print("Jump");
+            _rb.linearVelocity += Vector3.up * _jumpForce;
+        }
     }
+    
+    private void Punch(Upgrade[] upgrades, GameObject arm)
+    {
+        var armSpawnPoint = arm.transform.GetChild(0);
+        var ability = Instantiate(upgrades[0].spawningPrefab, armSpawnPoint.position, _camera.rotation);
+        StartCoroutine(DestroyAbility(ability, upgrades[0].despawningTime));
+    }
+
+    // Destroy Projectile/Damagebox
+    private IEnumerator DestroyAbility(GameObject obj, float destroyTime)
+    {
+        yield return new WaitForSeconds(destroyTime);
+        Destroy(obj);
+    }
+    
 
     private void FixedUpdate()
     {
@@ -74,8 +108,14 @@ public class PlayerCharacter : MonoBehaviour
 
     private void UpdatePhysicsMovement()
     {
-        _rb.linearVelocity = _movementVector * _movementSpeed;
+        var rightMovement = transform.right * _movementVector.x;
+        var forwardMovement = transform.forward * _movementVector.y;
+        var xyMovement = (rightMovement + forwardMovement).normalized * _movementSpeed;
+        
+        _rb.linearVelocity = new Vector3(xyMovement.x,  _rb.linearVelocity.y, xyMovement.z);
     }
+
+    
     
     #region Camera Look
     
@@ -108,4 +148,9 @@ public class PlayerCharacter : MonoBehaviour
     }
     
     #endregion
+
+    private bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.2f, LayerMask.GetMask("Ground"));
+    }
 }

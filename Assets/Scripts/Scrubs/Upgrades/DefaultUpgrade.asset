@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e51ef31c967f28c4080f3aa3990ac1ac, type: 3}
-  m_Name: ShockUpgrade
-  m_EditorClassIdentifier: Assembly-CSharp::Upgrades
-  atkBonus: 1
+  m_Name: DefaultUpgrade
+  m_EditorClassIdentifier: Assembly-CSharp::Upgrade
+  atkBonus: 5
   atkMultiplier: 1
-  spawningPrefab: {fileID: 0}
+  spawningPrefab: {fileID: 4133355088545788563, guid: fddd6071b5d357b4f838f11e5c3d125d, type: 3}
+  despawningTime: 0.2
   jumpAbility: 0
