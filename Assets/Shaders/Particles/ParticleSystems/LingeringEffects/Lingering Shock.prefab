@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 653526091626174691}
   - component: {fileID: 8414643427924613191}
   m_Layer: 0
-  m_Name: Shock effect
+  m_Name: Lingering Shock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
