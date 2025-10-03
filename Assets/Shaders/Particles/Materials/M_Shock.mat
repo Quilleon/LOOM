@@ -49,10 +49,10 @@ Material:
     - _Offset: 0.35
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Speed: 0.6
+    - _Speed: 1.63
     - _Stretch: 2
     m_Colors:
-    - _Tint: {r: 21.20465, g: 21.67144, b: 36.329647, a: 0}
+    - _Tint: {r: 84.8186, g: 86.68576, b: 145.31859, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2454914710017170613
