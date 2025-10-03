@@ -88,13 +88,7 @@ public class PlayerCharacter : MonoBehaviour
             _rb.linearVelocity += Vector3.up * _jumpForce;
         }
     }
-
-    private float punchLength, punchTime;
-    private void LateUpdate()
-    {
-        
-    }
-
+    
     private IEnumerator Punch(Upgrade[] upgrades, GameObject arm)
     {
         
