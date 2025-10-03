@@ -9,7 +9,7 @@ public class DamageEffect : MonoBehaviour
 {
     void Start()
     {
-        
+        _effectsSpawnParent = transform.GetChild(0).GetChild(0).GetChild(0);
     }
 
     void Update()
@@ -25,7 +25,7 @@ public class DamageEffect : MonoBehaviour
     
     private float hitEffectDestroyTime = 1f, lingeringEffectTime = 7f;
     private int _lingeringEffect;
-    private IEnumerator _lingeringEffectCoroutine;
+    private Transform _effectsSpawnParent;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -79,14 +79,12 @@ public class DamageEffect : MonoBehaviour
         if (effectsScrub.hitEffects[effectNum] != null)
             hitEffect = effectsScrub.hitEffects[effectNum];
         
-        SpawnEffect(hitEffect, hitEffectDestroyTime);
+        SpawnEffect(hitEffect, hitEffectDestroyTime, false);
     }
     
 
     private void SpawnLingeringEffect(int lingeringEffect)
     {
-        if (_lingeringEffectCoroutine != null) { print("Lingering effect in action"); return; }
-        
         if (effectsScrub.lingeringEffects[lingeringEffect] == null)
         {
             Debug.LogError("No matching effect!");
@@ -94,26 +92,32 @@ public class DamageEffect : MonoBehaviour
         }
 
         
+        if (_effectsSpawnParent.childCount > 0)
+        {
+            print("Removed Previous Lingering Effect");
+            Destroy(_effectsSpawnParent.GetChild(0).gameObject);
+        }
+        
         
         var effect = effectsScrub.lingeringEffects[lingeringEffect];
-
-        _lingeringEffectCoroutine?.MoveNext();
         
-        SpawnEffect(effect, lingeringEffectTime, out _lingeringEffectCoroutine);
+        SpawnEffect(effect, lingeringEffectTime, true);
     }
-
-    private void SpawnEffect(GameObject effect, float time, out IEnumerator coroutine) // With control over the coroutine
+    
+    private void SpawnEffect(GameObject effect, float time, bool lingering)
     {
         var effectRotation = transform.GetChild(0).rotation;
-        var spawnedEffect =  Instantiate(effect, transform.position, effectRotation);
+        GameObject spawnedEffect;
         
-        coroutine = DestroyEffect(spawnedEffect, time);
-        StartCoroutine(coroutine);
-    }
-    private void SpawnEffect(GameObject effect, float time)
-    {
-        var effectRotation = transform.GetChild(0).rotation;
-        var spawnedEffect =  Instantiate(effect, transform.position, effectRotation);
+        if (lingering)
+        {
+            spawnedEffect = Instantiate(effect, transform.position, effectRotation, _effectsSpawnParent);
+        }
+        else // Hit Effect
+        {
+            spawnedEffect =  Instantiate(effect, transform.position, effectRotation);
+        }
+        
         StartCoroutine(DestroyEffect(spawnedEffect, time));
     }
     
