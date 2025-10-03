@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 7705215213815356708}
   - component: {fileID: 3581286074556717608}
   - component: {fileID: 4653670068042973710}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CollisionMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 3236061363546699077}
   - component: {fileID: 6924152515009274254}
   - component: {fileID: 4154125081799904172}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}

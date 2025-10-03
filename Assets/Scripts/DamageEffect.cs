@@ -9,15 +9,12 @@ public class DamageEffect : MonoBehaviour
 {
     void Start()
     {
-        _effectsSpawnParent = transform.GetChild(0).GetChild(0).GetChild(0);
+        _effectsSpawnParent = transform.GetChild(0).GetChild(0);
     }
 
     void Update()
     {
-        //if (_lingeringEffectCoroutine)
-        {
-            
-        }
+        
     }
 
     

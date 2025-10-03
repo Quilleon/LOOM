@@ -62,6 +62,8 @@ public class PlayerCharacter : MonoBehaviour
         
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        
+        Physics.IgnoreLayerCollision(7,8);
     }
 
     // Update is called once per frame

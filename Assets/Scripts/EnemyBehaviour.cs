@@ -62,7 +62,8 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else if (stopVeloctiy)
         {
-            print("Attacking");
+            //print("Attacking");
+            _rb.linearVelocity = Vector3.zero;
             //_anim.Play("Attack");
         }
         else if (_rb.linearVelocity.magnitude > walkSpeed * 0.8f)
@@ -71,8 +72,8 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else // standing still for some reason
         {
-            print(_rb.linearVelocity.magnitude);
-            Debug.Log("Standing still for some reason");
+            //print(_rb.linearVelocity.magnitude);
+            //Debug.Log("Standing still for some reason");
             _anim.Play("Idle");
         }
     }
