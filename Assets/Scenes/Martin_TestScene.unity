@@ -270,83 +270,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &776090794
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3443766961035075849, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3443766961035075849, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3443766961035075849, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3443766961035075849, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3443766961035075849, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3443766961035075849, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3443766961035075849, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3443766961035075849, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3443766961035075849, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3443766961035075849, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4963867063995227237, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: m_Name
-      value: PS_LightningBurst
-      objectReference: {fileID: 0}
-    - target: {fileID: 8975949619965382684, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: lengthInSec
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8975949619965382684, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[0].cycleCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8975949619965382684, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].cycleCount
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8975949619965382684, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[0].repeatInterval
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8975949619965382684, guid: c963be03e65091045a74789c5abbea37, type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
-      value: 100
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c963be03e65091045a74789c5abbea37, type: 3}
 --- !u!1 &1512483351
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,7 +443,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1840866982}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1840866979
@@ -614,7 +538,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1772047470}
   m_LocalEulerAnglesHint: {x: 24.602, y: 0, z: 0}
 --- !u!114 &1840866983
 MonoBehaviour:
@@ -766,9 +690,7 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1840866982}
   - {fileID: 1512483353}
   - {fileID: 1772047470}
   - {fileID: 1860522747}
   - {fileID: 486990946}
-  - {fileID: 776090794}
