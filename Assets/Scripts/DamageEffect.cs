@@ -2,71 +2,106 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+
+
 [RequireComponent(typeof(Rigidbody))]
 public class DamageEffect : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
+
     
-    [SerializeField] private HitEffects hitEffectsScrub;
+    [SerializeField] private HitEffects effectsScrub;
+    
+    private float hitEffectDestroyTime = 1f, lingeringEffectTime = 7f;
 
     private void OnTriggerEnter(Collider other)
     {
         print("Entered");
         if (other.gameObject.CompareTag("DamageBox"))
         {
+            int hitEffect;
+            
             switch (other.gameObject.layer)
             {
                 case 10: // Lightning
                     print("Lightning Hit");
-                    SpawnHitEffect(1);
+                    hitEffect = 1;
                     break;
                 case 11: // Water
                     print("Water Hit");
-                    SpawnHitEffect(2);
+                    hitEffect = 2;
                     break;
                 case 12: // Fire
                     print("Fire Hit");
-                    SpawnHitEffect(3);
+                    hitEffect = 3;
                     break;
                 case 13: // Ice
                     print("Ice Hit");
-                    SpawnHitEffect(4);
+                    hitEffect = 4;
                     break;
                 case 14: // Crush
                     print("Crush Hit");
-                    //SpawnHitEffect(hitEffects[4]);
+                    hitEffect = 5;
                     break;
                 case 15: // Pierce
                     print("Pierce Hit");
-                    //SpawnHitEffect(hitEffects[5]);
+                    hitEffect = 6;
                     break;
                 default:
                     print("Not elemental");
-                    SpawnHitEffect(0);
+                    hitEffect = 0;
                     break;
             }
+            
+            SpawnHitEffect(hitEffect);
+            SpawnLingeringEffect(hitEffect);
         }
     }
-
+    
     private void SpawnHitEffect(int effectNum)
     {
-        var effect = Instantiate(hitEffectsScrub.hitEffects[effectNum], transform.position, transform.GetChild(0).rotation);
-        StartCoroutine(DestroyEffect(effect));
+        // Defaults to 0
+        var hitEffect = effectsScrub.hitEffects[0];
+        
+        if (effectsScrub.hitEffects[effectNum] != null)
+            hitEffect = effectsScrub.hitEffects[effectNum];
+        
+        var effect = Instantiate(hitEffect, transform.position, transform.GetChild(0).rotation);
+        StartCoroutine(DestroyEffect(effect, hitEffectDestroyTime));
     }
+    
 
-    private IEnumerator DestroyEffect(GameObject effect)
+    private void SpawnLingeringEffect(int lingeringEffect)
     {
-        yield return new WaitForSeconds(1f);
-        Destroy(effect);
+        if (effectsScrub.lingeringEffects[lingeringEffect] == null)
+        {
+            Debug.LogError("No matching effect!");
+            return;
+        }
+        
+        
+        var effect = effectsScrub.lingeringEffects[lingeringEffect];
+        
+        var spawnedEffect =  Instantiate(effect, transform.position, transform.GetChild(0).rotation);
+        StartCoroutine(DestroyEffect(spawnedEffect, lingeringEffectTime));
+    }
+    
+    
+
+    private IEnumerator DestroyEffect(GameObject effect, float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (effect)
+        {
+            Destroy(effect);
+        }
     }
 }

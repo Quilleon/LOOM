@@ -15,7 +15,7 @@ public class BillboardEffect : MonoBehaviour
         if (_mainCamera)
         {
             transform.LookAt(_mainCamera.transform.position);
-            transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y +90, 90f);
+            transform.rotation = Quaternion.Euler(90f, transform.rotation.eulerAngles.y, 0f);
             //transform.forward = _mainCamera.transform.forward;
         }
     }
