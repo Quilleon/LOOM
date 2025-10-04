@@ -10,13 +10,13 @@
             "m_Id": "71658f6935394735af9e0a489b0d039a"
         },
         {
-            "m_Id": "a97e47b6c54248f39a931dcb58b13a29"
-        },
-        {
             "m_Id": "2beadecd543d4f6db87d75d5012c8111"
         },
         {
             "m_Id": "7c306ed55cbc49ab99e8426b59525948"
+        },
+        {
+            "m_Id": "9310622906d844a29cd38c06c51236f6"
         }
     ],
     "m_Keywords": [],
@@ -457,13 +457,13 @@
             "m_Id": "71658f6935394735af9e0a489b0d039a"
         },
         {
-            "m_Id": "a97e47b6c54248f39a931dcb58b13a29"
-        },
-        {
             "m_Id": "2beadecd543d4f6db87d75d5012c8111"
         },
         {
             "m_Id": "7c306ed55cbc49ab99e8426b59525948"
+        },
+        {
+            "m_Id": "9310622906d844a29cd38c06c51236f6"
         }
     ]
 }
@@ -961,6 +961,36 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector3ShaderProperty",
+    "m_ObjectId": "9310622906d844a29cd38c06c51236f6",
+    "m_Guid": {
+        "m_GuidSerialized": "181b7e85-da1b-4042-bb7c-bac641d71694"
+    },
+    "m_Name": "Offset",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Offset",
+    "m_DefaultReferenceName": "_Offset",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_PerRendererData": false,
+    "m_customAttributes": [],
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "9501a044f08d409697b5e7639899ddfa",
@@ -1198,36 +1228,6 @@
     },
     "m_Labels": [],
     "m_Space": 4
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector2ShaderProperty",
-    "m_ObjectId": "a97e47b6c54248f39a931dcb58b13a29",
-    "m_Guid": {
-        "m_GuidSerialized": "f4c68216-d1f5-48e6-bbde-dea60d7ff6d5"
-    },
-    "m_Name": "Offset",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Offset",
-    "m_DefaultReferenceName": "_Offset",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_PerRendererData": false,
-    "m_customAttributes": [],
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "w": 0.0
-    }
 }
 
 {
