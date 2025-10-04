@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 375314215205199481}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.35, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -316,7 +316,7 @@ Transform:
   m_GameObject: {fileID: 2114153275912814630}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 5534064450347976113}
   - component: {fileID: 603173348044438782}
   m_Layer: 0
-  m_Name: RightArmVisuals
+  m_Name: ArmVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -673,7 +673,7 @@ GameObject:
   - component: {fileID: 3382403108822918449}
   - component: {fileID: 6589915140505936514}
   m_Layer: 0
-  m_Name: RightArmVisuals
+  m_Name: ArmVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
