@@ -43,6 +43,7 @@ public class PlayerCharacter : MonoBehaviour
     
     
     private Rigidbody _rb;
+    private Animator _anim;
     
     [SerializeField] private float _movementSpeed = 5f;
     [SerializeField] private float _jumpForce = 8;
@@ -51,14 +52,22 @@ public class PlayerCharacter : MonoBehaviour
     private float _inputBuffer;
 
     [SerializeField] private GameObject _rightArm, _leftArm;
+    private Animator _rightAnim, _leftAnim;
+    private bool _canRightPunch = true, _canLeftPunch = true;
     [SerializeField] private Upgrade[] _rightUpgrades, _leftUpgrades;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _anim = GetComponentInChildren<Animator>();
         
         _camera = transform.GetChild(0);
+
+        // Can cause error
+        _rightAnim = _rightArm.GetComponentInParent<Animator>();
+        _leftAnim = _leftArm.GetComponentInParent<Animator>();
+        
         
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -72,16 +81,16 @@ public class PlayerCharacter : MonoBehaviour
         UpdateInputs();
         UpdateLookDirection(_lookVector, true);
 
-        if (_rightPunchPressed)
+        if (_rightPunchPressed && _canRightPunch)
         {
             print("Right Hand Punch");
-            StartCoroutine(Punch(_rightUpgrades, _rightArm));
+            StartCoroutine(Punch(_rightUpgrades, _rightArm, _rightAnim, true));
         }
 
-        if (_leftPunchPressed)
+        if (_leftPunchPressed && _canLeftPunch)
         {
             print("Left Hand Punch");
-            StartCoroutine(Punch(_leftUpgrades, _leftArm));
+            StartCoroutine(Punch(_leftUpgrades, _leftArm, _leftAnim, false));
         }
 
         if (_jumpPressed && IsGrounded())
@@ -97,15 +106,34 @@ public class PlayerCharacter : MonoBehaviour
         
     }
 
-    private IEnumerator Punch(Upgrade[] upgrades, GameObject arm)
+    private IEnumerator Punch(Upgrade[] upgrades, GameObject arm, Animator armAnim, bool isRight)
     {
+        if (isRight) _canRightPunch = false;
+        else _canLeftPunch = false;
         
         
-        yield return new WaitForSeconds(0);
+        armAnim.Play("Punch");
+        
+        yield return new WaitForSeconds(.05f);
         
         var armSpawnPoint = arm.transform.GetChild(0);
         var ability = Instantiate(upgrades[0].spawningPrefab, armSpawnPoint.position, _camera.rotation);
         StartCoroutine(DestroyAbility(ability, upgrades[0].despawningTime));
+        
+        yield return new WaitForSeconds(0.1f);
+        
+        // Retract
+        //float animMultiplier = -1 / 4;
+        //armAnim.speed *= animMultiplier;
+        armAnim.Play("Retract");
+        
+        yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).length); //_anim.GetCurrentAnimatorStateInfo(0).length / Mathf.Abs(animMultiplier)
+        
+        // Finished
+        //armAnim.speed = 1;
+        
+        if (isRight) _canRightPunch = true;
+        else _canLeftPunch = true;
     }
 
     // Destroy Projectile/Damagebox
