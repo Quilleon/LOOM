@@ -8,6 +8,7 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     private Animator _anim;
+    private SpriteRenderer _renderer;
     private Rigidbody _rb;
 
     [SerializeField] private float maxHealth = 100, currentHealth;
@@ -22,6 +23,7 @@ public class EnemyBehaviour : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         
         _anim = GetComponentInChildren<Animator>();
+        _renderer = GetComponentInChildren<SpriteRenderer>();
         
         currentHealth = maxHealth;
     }
@@ -148,5 +150,10 @@ public class EnemyBehaviour : MonoBehaviour
             return;
         
         currentHealth -= damage;
+    }
+
+    public void ChangeMaterial(Material mat)
+    {
+        _renderer.material = mat;
     }
 }
