@@ -327,4 +327,5 @@ public class DamageEffect : MonoBehaviour
             SpawnEffect(effectsScrub.reactionEffects[0], .5f, false);
         }
     }
+    
 }
