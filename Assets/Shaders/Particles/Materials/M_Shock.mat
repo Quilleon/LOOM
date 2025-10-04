@@ -9,10 +9,11 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Shock
   m_Shader: {fileID: -6465566751694194690, guid: 7e79156ddcf1fcb4a9bed6042541ad39, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
+  m_Parent: {fileID: 2100000, guid: b8a3416fe59e0bf4ab889f373f905bba, type: 2}
+  m_ModifiedSerializedProperties: 18
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _FLIPBOOKBLENDING_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -24,35 +25,25 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Gradient:
-        m_Texture: {fileID: 2800000, guid: 4035dc80e88969b4fb55949290450de0, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Main_Tex:
-        m_Texture: {fileID: 2800000, guid: e21469b29c175e243a06bc137909316f, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
+    - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Offset: 0.35
-    - _QueueControl: 0
-    - _QueueOffset: 0
-    - _Speed: 0.4
-    - _Stretch: 1.22
+    - _CameraFadingEnabled: 0
+    - _Mode: 0
+    - _Offset: 0.69
+    - _SoftParticlesEnabled: 0
+    - _Speed: 1.79
+    - _Stretch: 0.95
     m_Colors:
-    - _Tint: {r: 42.4093, g: 43.34288, b: 72.659294, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+    - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Tint: {r: 8, g: 5.9119487, b: 7.9450207, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2454914710017170613

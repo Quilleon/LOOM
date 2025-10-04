@@ -4871,7 +4871,7 @@ ParticleSystemRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_RenderMode: 4
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -4896,7 +4896,7 @@ ParticleSystemRenderer:
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 5444407928868866650, guid: 626b533c278bce847ab231174d9cc083, type: 3}
-  m_Mesh1: {fileID: 0}
+  m_Mesh1: {fileID: 1651394097372454100, guid: 24cd299d36e5ba84680f7694241473f7, type: 3}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MeshWeighting: 1
