@@ -23,6 +23,25 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 9189290391331004035, guid: 1ab755f325052044db680dcc1484f5fd, type: 3}
   - {fileID: 0}
+  - {fileID: 1473311392452183674, guid: dfee7b8168ad9b6468c3d5eb09c4a5aa, type: 3}
+  - {fileID: 1473311392452183674, guid: ba6a0c9beb2e2474a8ccdd3e1fe7bafb, type: 3}
+  - {fileID: 0}
+  lingeringEffectMaterials:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  reactionEffects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  reactionMultiplier:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1

@@ -118,7 +118,8 @@ public class PlayerCharacter : MonoBehaviour
         
         var armSpawnPoint = arm.transform.GetChild(0);
         var ability = Instantiate(upgrades[0].spawningPrefab, armSpawnPoint.position, _camera.rotation);
-        StartCoroutine(DestroyAbility(ability, upgrades[0].despawningTime));
+        ability.tag = "PlayerAttack";
+        //StartCoroutine(DestroyAbility(ability, upgrades[0].despawningTime));
         
         yield return new WaitForSeconds(0.1f);
         
