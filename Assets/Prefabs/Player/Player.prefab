@@ -230,7 +230,7 @@ MonoBehaviour:
   _rightArm: {fileID: 7143297797161526704}
   _leftArm: {fileID: 2631232991532383003}
   _rightUpgrades:
-  - {fileID: 11400000, guid: 8b277bc50d67d2a468d37c2968f8b695, type: 2}
+  - {fileID: 11400000, guid: 3095cf0d41db2b34889c4c5a5b0f9432, type: 2}
   _leftUpgrades:
   - {fileID: 11400000, guid: 3095cf0d41db2b34889c4c5a5b0f9432, type: 2}
   _cursorSensitivity: 0.2
