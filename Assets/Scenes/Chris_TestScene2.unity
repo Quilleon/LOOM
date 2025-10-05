@@ -579,9 +579,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 57914604249355905, guid: 2975c6f1a3feb394c8a1334b44995fd9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1974066678398133350, guid: 2975c6f1a3feb394c8a1334b44995fd9, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6743324006284362409, guid: 2975c6f1a3feb394c8a1334b44995fd9, type: 3}
+      propertyPath: m_Name
+      value: ArmVisuals
       objectReference: {fileID: 0}
     - target: {fileID: 7437027436097187280, guid: 2975c6f1a3feb394c8a1334b44995fd9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -625,6 +633,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8563422629114269706, guid: 2975c6f1a3feb394c8a1334b44995fd9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921036656859172605, guid: 2975c6f1a3feb394c8a1334b44995fd9, type: 3}
+      propertyPath: m_Name
+      value: ArmVisuals
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962357863651193476, guid: 2975c6f1a3feb394c8a1334b44995fd9, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9051391167326585471, guid: 2975c6f1a3feb394c8a1334b44995fd9, type: 3}
