@@ -89,7 +89,7 @@ public class PlayerCharacter : MonoBehaviour
         if (currentHealth == 0)
         {
             print("Player Is Dead");
-            return;
+            //return;
         }
         
         UpdateInputs();
