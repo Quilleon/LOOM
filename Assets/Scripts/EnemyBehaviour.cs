@@ -28,7 +28,18 @@ public class EnemyBehaviour : MonoBehaviour
     private bool deathAnimPlaying, plannedAttack;
     void Start()
     {
-        _player = GameObject.Find("Player").transform;
+        if (GameObject.Find("Player"))
+        {
+            _player = GameObject.Find("Player").transform;
+        }
+        else
+        {
+            Debug.LogError("Player not found!");
+            Instantiate(enemyDeath, transform.position, transform.rotation);
+            Destroy(gameObject);
+            return;
+        }
+        
         
         _rb = GetComponent<Rigidbody>();
         
