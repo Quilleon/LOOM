@@ -45,6 +45,8 @@ public class PlayerCharacter : MonoBehaviour
     private Rigidbody _rb;
     private Animator _anim;
     
+    [SerializeField] float maxHealth = 100f, currentHealth;
+    
     [SerializeField] private float _movementSpeed = 5f;
     [SerializeField] private float _jumpForce = 8;
     private float _health;
@@ -55,6 +57,8 @@ public class PlayerCharacter : MonoBehaviour
     private Animator _rightAnim, _leftAnim;
     private bool _canRightPunch = true, _canLeftPunch = true;
     [SerializeField] private Upgrade[] _rightUpgrades, _leftUpgrades;
+
+    private Transform _effectSpawn;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -63,6 +67,7 @@ public class PlayerCharacter : MonoBehaviour
         _anim = GetComponentInChildren<Animator>();
         
         _camera = transform.GetChild(0);
+        _effectSpawn = _camera.GetChild(1);
 
         // Can cause error
         _rightAnim = _rightArm.GetComponentInParent<Animator>();
@@ -73,23 +78,32 @@ public class PlayerCharacter : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         
         Physics.IgnoreLayerCollision(7,8);
+
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        if (currentHealth == 0)
+        {
+            print("Player Is Dead");
+            return;
+        }
+        
         UpdateInputs();
         UpdateLookDirection(_lookVector, true);
 
         if (_rightPunchPressed && _canRightPunch)
         {
-            print("Right Hand Punch");
+            //print("Right Hand Punch");
             StartCoroutine(Punch(_rightUpgrades, _rightArm, _rightAnim, true));
         }
 
         if (_leftPunchPressed && _canLeftPunch)
         {
-            print("Left Hand Punch");
+            //print("Left Hand Punch");
             StartCoroutine(Punch(_leftUpgrades, _leftArm, _leftAnim, false));
         }
 
@@ -156,7 +170,7 @@ public class PlayerCharacter : MonoBehaviour
 
 
         Grounded(out var hit);
-        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal); print(rotation.eulerAngles);
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal); //print(rotation.eulerAngles);
         
         
         var rightMovement = transform.right * _movementVector.x;
@@ -209,14 +223,14 @@ public class PlayerCharacter : MonoBehaviour
 
     private bool Grounded()
     {
-        print("Is Grounded");
+        //print("Is Grounded");
         Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.1f, LayerMask.GetMask("Ground"));
         
         return hit.collider;
     }
     private bool Grounded(out RaycastHit hit)
     {
-        print("Is Grounded");
+        //print("Is Grounded");
         Physics.Raycast(transform.position, Vector3.down, out RaycastHit _hit, 1.1f, LayerMask.GetMask("Ground"));
         
         hit = _hit;
@@ -224,23 +238,87 @@ public class PlayerCharacter : MonoBehaviour
         return _hit.collider;
     }
 
+
+    [SerializeField] private HitEffects effectsScrub;
     
-    
-    
-    private bool _collidingWithGround;
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        print("Trigger entered");
+
+        if (other.CompareTag("DamageBox") && other.transform.parent.CompareTag("EnemyAttack"))
         {
-            _collidingWithGround = true;
+            TakeDamage(other.GetComponent<Damage>().damageValue);
+            
+            print("Damage Entered");
+            LingeringElements hitEffect = 0;
+            
+            switch (other.gameObject.layer)
+            {
+                case 10: // Lightning
+                    print("Lightning Hit");
+                    hitEffect = LingeringElements.Lightning;
+                    break;
+                case 11: // Water
+                    print("Water Hit");
+                    hitEffect = LingeringElements.Water;
+                    break;
+                case 12: // Fire
+                    print("Fire Hit");
+                    hitEffect = LingeringElements.Fire;
+                    break;
+                case 13: // Ice
+                    print("Ice Hit");
+                    hitEffect = LingeringElements.Ice;
+                    break;
+                case 14: // Crush
+                    Debug.LogError("NOT IMPLEMENTED CRUSH!");
+                    print("Crush Hit");
+                    //hitEffect = 5;
+                    break;
+                case 15: // Pierce
+                    Debug.LogError("NOT IMPLEMENTED PIERCE!");
+                    print("Pierce Hit");
+                    //hitEffect = 6;
+                    break;
+                default:
+                    print("Not elemental");
+                    hitEffect = LingeringElements.None;
+                    break;
+            }
+            
+            SpawnHitEffect(hitEffect);
+        }
+    }
+    
+    private void SpawnHitEffect(LingeringElements effectNum)
+    {
+        // Defaults to 0
+        var hitEffect = effectsScrub.hitEffects[0];
+        
+        //if (effectsScrub.hitEffects[(int)effectNum] != null) hitEffect = effectsScrub.hitEffects[(int)effectNum];
+        
+        SpawnEffect(hitEffect, .5f);
+    }
+    
+    private void SpawnEffect(GameObject effect, float time)
+    {
+        GameObject spawnedEffect =  Instantiate(effect, _effectSpawn.position, _effectSpawn.rotation, _effectSpawn);
+        spawnedEffect.transform.localPosition += new Vector3(0, 0, 1);
+        
+        StartCoroutine(DestroyEffect(spawnedEffect, time));
+    }
+    
+    private IEnumerator DestroyEffect(GameObject effect, float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (effect)
+        {
+            Destroy(effect);
         }
     }
 
-    private void OnCollisionExit(Collision other)
+    private void TakeDamage(float damage)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            _collidingWithGround = false;
-        }
+        currentHealth -= damage;
     }
 }

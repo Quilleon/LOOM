@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -4136991199921452059}
   m_Layer: 10
   m_Name: LightningBoltDamagebox
-  m_TagString: Untagged
+  m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,13 +56,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5895625299343017838}
     m_Modifications:
+    - target: {fileID: 387525127860510656, guid: 842f809ab15ede34dabedf19e08114e7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2217209824443502152, guid: 842f809ab15ede34dabedf19e08114e7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.0288
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2217209824443502152, guid: 842f809ab15ede34dabedf19e08114e7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.93142
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2217209824443502152, guid: 842f809ab15ede34dabedf19e08114e7, type: 3}
       propertyPath: m_LocalPosition.z

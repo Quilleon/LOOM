@@ -24,7 +24,8 @@ public class EnemyBehaviour : MonoBehaviour
     
     [SerializeField] private float walkSpeed = 3;
     private bool activated, walking;
-    public bool isDead;
+    public bool isDead, isFrozen;
+    private bool _wasFrozen;
     private bool deathAnimPlaying, plannedAttack;
     void Start()
     {
@@ -60,6 +61,21 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isFrozen)
+        {
+            print("Enemy Frozen");
+            _anim.speed = 0;
+            activated = false;
+            StopAllCoroutines();
+        }
+        else if (_wasFrozen != isFrozen && _wasFrozen)
+        {
+            print("Unfrozen");
+            _anim.speed = 1;
+        }
+
+        _wasFrozen = isFrozen;
+        
         currentHealth = math.clamp(currentHealth, 0, maxHealth);
         if (!isDead && currentHealth <= 0)
         {
@@ -69,7 +85,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isDead && !activated && CanSeePlayer())
+        if (!isDead && !activated && CanSeePlayer() && !isFrozen)
         {
             print("Activated");
             activated = true;

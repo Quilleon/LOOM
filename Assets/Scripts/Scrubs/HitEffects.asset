@@ -22,7 +22,7 @@ MonoBehaviour:
   lingeringEffects:
   - {fileID: 0}
   - {fileID: 9189290391331004035, guid: 1ab755f325052044db680dcc1484f5fd, type: 3}
-  - {fileID: 0}
+  - {fileID: 2400427491306826486, guid: 6c05d328c3d839140b920dd0a44915c7, type: 3}
   - {fileID: 1473311392452183674, guid: dfee7b8168ad9b6468c3d5eb09c4a5aa, type: 3}
   - {fileID: 1473311392452183674, guid: ba6a0c9beb2e2474a8ccdd3e1fe7bafb, type: 3}
   - {fileID: 0}
@@ -34,14 +34,14 @@ MonoBehaviour:
   - {fileID: 2100000, guid: c7db083810e12ff4f886df00ac68e25e, type: 2}
   - {fileID: 2100000, guid: cc970f31bcdf32c4083113a61ee9ca55, type: 2}
   reactionEffects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8151283800235669636, guid: c449771f9f3bf1f4ca5cc5b2bc82d267, type: 3}
+  - {fileID: 7944639056309328213, guid: ec2a7e1ba5dc91d4fbe0b9dc55e914e2, type: 3}
+  - {fileID: 8151283800235669636, guid: 61bf9d81617d86d4d9da3ff88d3427dd, type: 3}
+  - {fileID: 8151283800235669636, guid: 61bf9d81617d86d4d9da3ff88d3427dd, type: 3}
+  - {fileID: 7127253155647196084, guid: 0a87ce00d1e11bf4c9b00fd040b62380, type: 3}
   reactionMultiplier:
   - 1
-  - 1
-  - 1
-  - 1
+  - 1.2
+  - 2
+  - 3
   - 1

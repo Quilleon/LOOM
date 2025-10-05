@@ -39,7 +39,7 @@ public class DamageEffect : MonoBehaviour
     private float _incomingDamage, _damageMultiplier = 1f;
     
     private float hitEffectDestroyTime = 1f, lingeringEffectTime = 7f;
-    private LingeringElements _incomingLingeringEffect, _activeLingeringEffect;
+    [SerializeField] private LingeringElements _incomingLingeringEffect, _activeLingeringEffect;
     private Transform _effectsSpawnParent;
 
     private void OnTriggerEnter(Collider other)
@@ -47,7 +47,7 @@ public class DamageEffect : MonoBehaviour
         if (_enemyBehaviour.isDead)
             return;
         
-        print("Entered");
+        //print("Entered");
         if (other.gameObject.CompareTag("DamageBox") && other.transform.parent.CompareTag("PlayerAttack"))
         {
             if (_enemyBehaviour)
@@ -56,7 +56,7 @@ public class DamageEffect : MonoBehaviour
             }
             else
             {
-                print("No EnemyBehaviour!");
+                Debug.LogError("No EnemyBehaviour!");
             }
             
             LingeringElements hitEffect = 0;
@@ -124,7 +124,7 @@ public class DamageEffect : MonoBehaviour
         
         if (_effectsSpawnParent.childCount > 0)
         {
-            print("Calculating reaction");
+            //print("Calculating reaction");
             
             
             CalculateEffectReaction(lingeringEffect, _activeLingeringEffect, out spawnReaction);
@@ -143,7 +143,10 @@ public class DamageEffect : MonoBehaviour
         _incomingDamage = 0;
         _damageMultiplier = 1;
         
+        
         if (!spawnReaction) return;
+        
+        print("Spawn Lingering effect");
         _activeLingeringEffect = lingeringEffect;
         var effect = effectsScrub.lingeringEffects[(int)_activeLingeringEffect];
         
@@ -182,8 +185,11 @@ public class DamageEffect : MonoBehaviour
         {
             if (hasMaterial)
             {
+                print("Destroyed a lingering effect");
                 _enemyBehaviour.spriteRenderer.material = effectsScrub.lingeringEffectMaterials[0];
                 _activeLingeringEffect = 0;
+                // Is only relevant when enemy is frozen
+                _enemyBehaviour.isFrozen = false;
             }
             
             Destroy(effect);
@@ -199,7 +205,7 @@ public class DamageEffect : MonoBehaviour
 
     private void CalculateEffectReaction(LingeringElements incomingEffect, LingeringElements currentEffect, out bool spawnIncomingReaction)
     {
-        spawnIncomingReaction = true;
+        spawnIncomingReaction = false;
         
         switch (currentEffect)
         {
@@ -208,13 +214,13 @@ public class DamageEffect : MonoBehaviour
                 {
                     case LingeringElements.Fire:
                         ExplosionReaction();
-                        spawnIncomingReaction = false;
                         break;
                     case LingeringElements.Ice:
                         SuperConduct();
                         break;
                     default: // Lightning, Water, ice
                         print("no reaction, switch lingering effect");
+                        spawnIncomingReaction = true;
                         break;
                 }
                 break;
@@ -222,18 +228,18 @@ public class DamageEffect : MonoBehaviour
                 switch (incomingEffect)
                 {
                     case LingeringElements.Lightning:
-                        ElectrocuteReaction();
-                        spawnIncomingReaction = false;
+                        //TODO: ElectrocuteReaction();
+                        spawnIncomingReaction = true;
                         break;
                     case LingeringElements.Fire:
                         VaporizeReaction();
-                        spawnIncomingReaction = false;
                         break;
                     case LingeringElements.Ice:
                         FreezeReaction();
                         break;
                     default: // Water
                         print("no reaction, switch lingering effect");
+                        spawnIncomingReaction = true;
                         break;
                 }
                 break;
@@ -242,18 +248,16 @@ public class DamageEffect : MonoBehaviour
                 {
                     case LingeringElements.Lightning:
                         ExplosionReaction();
-                        spawnIncomingReaction = false;
                         break;
                     case LingeringElements.Water:
                         VaporizeReaction();
-                        spawnIncomingReaction = false;
                         break;
                     case LingeringElements.Ice:
                         MeltReaction();
-                        spawnIncomingReaction = false;
                         break;
                     default: // fire
                         print("no reaction, switch lingering effect");
+                        spawnIncomingReaction = true;
                         break;
                 }
                 break;
@@ -262,17 +266,16 @@ public class DamageEffect : MonoBehaviour
                 {
                     case LingeringElements.Lightning:
                         SuperConduct();
-                        spawnIncomingReaction = false;
                         break;
                     case LingeringElements.Water:
                         FreezeReaction();
                         break;
                     case LingeringElements.Fire:
                         MeltReaction();
-                        spawnIncomingReaction = false;
                         break;
                     default: // Ice
                         print("no reaction, switch lingering effect");
+                        spawnIncomingReaction = true;
                         break;
                 }
                 break;
@@ -281,25 +284,21 @@ public class DamageEffect : MonoBehaviour
                 {
                     case LingeringElements.Lightning:
                         SuperConduct();
-                        spawnIncomingReaction = false;
                         break;
                     case LingeringElements.Fire:
                         MeltReaction();
-                        spawnIncomingReaction = false;
                         break;
                     default:
                         print("no reaction, keep frozen effect");
+                        spawnIncomingReaction = false;
                         break;
                 }
                 break;
             default:
-                Debug.LogError("Not recognized Lingering Effect: " + currentEffect);
+                Debug.LogError("Not recognized current Lingering Effect: " + currentEffect);
+                spawnIncomingReaction = true;
                 break;
         }
-        
-        
-        Destroy(_effectsSpawnParent.GetChild(0).gameObject);
-        spawnIncomingReaction = true;
     }
 
     private void ExplosionReaction() // Fire on lightning, lightning on fire
@@ -310,7 +309,7 @@ public class DamageEffect : MonoBehaviour
         {
             // Spawn Explosion
             // Does close aoe damage
-            SpawnEffect(effectsScrub.reactionEffects[0], .5f, false);
+            SpawnEffect(effectsScrub.reactionEffects[reactionEffect], .5f, false);
             RemoveLingeringEffect();
             
             _damageMultiplier = effectsScrub.reactionMultiplier[reactionEffect];
@@ -325,7 +324,7 @@ public class DamageEffect : MonoBehaviour
         {
             // Spawn electrocute reaction
             // Reaction sends it forward
-            SpawnEffect(effectsScrub.reactionEffects[0], .5f, false);
+            SpawnEffect(effectsScrub.reactionEffects[reactionEffect], .5f, false);
 
             _damageMultiplier = effectsScrub.reactionMultiplier[reactionEffect];
         }
@@ -339,7 +338,7 @@ public class DamageEffect : MonoBehaviour
         if (effectsScrub.reactionEffects[reactionEffect])
         {
             // Spawn vaporize reaction
-            SpawnEffect(effectsScrub.reactionEffects[0], .5f, false);
+            SpawnEffect(effectsScrub.reactionEffects[reactionEffect], .5f, false);
             
             RemoveLingeringEffect();
             
@@ -360,7 +359,7 @@ public class DamageEffect : MonoBehaviour
             // Do 2x damage
             
             // Spawn Melt reaction
-            SpawnEffect(effectsScrub.reactionEffects[0], .5f, false);
+            SpawnEffect(effectsScrub.reactionEffects[reactionEffect], .5f, false);
             
             RemoveLingeringEffect();
             
@@ -372,29 +371,37 @@ public class DamageEffect : MonoBehaviour
     {
         var reactionEffect = 4;
         print("SuperConduct Reaction");
-        if (effectsScrub.reactionEffects[0])
+        if (effectsScrub.reactionEffects[reactionEffect])
         {
             // Spawn Superconduct reaction
             // This does large aoe damage, but not that much damage
-            SpawnEffect(effectsScrub.reactionEffects[0], .5f, false);
+            SpawnEffect(effectsScrub.reactionEffects[reactionEffect], .5f, false);
             
             _damageMultiplier = effectsScrub.reactionMultiplier[reactionEffect];
         }
     }
     
-    private void FreezeReaction() // Ice on water
+    private void FreezeReaction() // Ice on water, water on ice
     {
-        
         print("Freeze Reaction");
-        if (effectsScrub.lingeringEffects[(int)LingeringElements.Frozen])
+        if (effectsScrub.lingeringEffectMaterials[(int)LingeringElements.Frozen])
         {
+            print("Freeze Reaction executed");
+            // Remove current effect to avoid reactions
+            RemoveLingeringEffect();
+            
+            // Spawn ice effect
+            SpawnEffect(effectsScrub.lingeringEffects[(int)LingeringElements.Ice], lingeringEffectTime, true);
+            // Set frozen to active effect
+            _activeLingeringEffect = LingeringElements.Frozen;
             // Change material
             _enemyBehaviour.ChangeMaterial(effectsScrub.lingeringEffectMaterials[(int)LingeringElements.Frozen]);
-
-            RemoveLingeringEffect();
+            // Freeze enemy
+            _enemyBehaviour.isFrozen = true;
+            
 
             // Spawn an ice effect afterwards
-            _activeLingeringEffect = LingeringElements.Ice;
+            //_activeLingeringEffect = LingeringElements.Ice;
         }
     }
 }
