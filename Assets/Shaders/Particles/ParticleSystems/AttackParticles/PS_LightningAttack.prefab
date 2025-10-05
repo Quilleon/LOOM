@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6053180976574280939}
   - component: {fileID: 8830263104165735705}
   - component: {fileID: 8076539313982417075}
-  m_Layer: 20
+  m_Layer: 0
   m_Name: PS_LightningAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4907,7 +4907,7 @@ GameObject:
   - component: {fileID: 590759939922159774}
   - component: {fileID: 446980743258874972}
   - component: {fileID: 4154147602184545038}
-  m_Layer: 20
+  m_Layer: 0
   m_Name: HandShock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
