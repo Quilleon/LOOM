@@ -23,10 +23,12 @@ public class EnemyBehaviour : MonoBehaviour
     
     
     [SerializeField] private float walkSpeed = 3;
+    [SerializeField] private float reach = 5, sightRange = 10;
     private bool activated, walking;
     public bool isDead, isFrozen;
     private bool _wasFrozen;
     private bool deathAnimPlaying, plannedAttack;
+    
     void Start()
     {
         if (GameObject.Find("Player"))
@@ -51,8 +53,8 @@ public class EnemyBehaviour : MonoBehaviour
         
         _agent.speed = 0;
         _agent.acceleration = 100; // Speed should be instant
-        _agent.stoppingDistance = 2; // Should stop when player is in reach
-        _agent.destination = _player.position;
+        _agent.stoppingDistance = reach * 3/5; // Should stop when player is in reach
+        StartCoroutine(SetNewPosition());
         //_agent.enabled = false; // Enables when walking
         
         currentHealth = maxHealth;
@@ -61,6 +63,8 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CanSeePlayer();
+        
         if (isFrozen)
         {
             print("Enemy Frozen");
@@ -89,6 +93,8 @@ public class EnemyBehaviour : MonoBehaviour
         {
             print("Activated");
             activated = true;
+            walking = true;
+            _agent.speed = walkSpeed;
         }
 
         if (activated)
@@ -97,10 +103,9 @@ public class EnemyBehaviour : MonoBehaviour
             
             if (walking)
             {
-                //print("Walking towards player");
-                // TODO: Stop before reaching player
+                print("Walking towards player");
                 //_rb.linearVelocity = transform.forward.normalized * walkSpeed;
-                _agent.destination = _player.position;
+                //_agent.SetDestination(_player.position);
             }
 
             if (PlayerInReach() && !plannedAttack)
@@ -125,6 +130,7 @@ public class EnemyBehaviour : MonoBehaviour
                 Destroy(gameObject);
             }
             
+            /*
             // Stops ongoing attacks
             StopAllCoroutines();
             
@@ -133,6 +139,7 @@ public class EnemyBehaviour : MonoBehaviour
             walking = false;
             
             _anim.Play("Death");
+            */
         }
         else if (!isDead && !activated)
         {
@@ -142,7 +149,8 @@ public class EnemyBehaviour : MonoBehaviour
         else if (!walking)
         {
             //print("Attacking");
-            _rb.linearVelocity = Vector3.zero;
+            //_rb.linearVelocity = Vector3.zero;
+            _agent.speed = 0;
             //_anim.Play("Attack");
         }
         else if (walking)//(_rb.linearVelocity.magnitude > walkSpeed * 0.8f)
@@ -196,16 +204,32 @@ public class EnemyBehaviour : MonoBehaviour
         walking = true;
     }
 
+    private IEnumerator SetNewPosition()
+    {
+        _agent.SetDestination(_player.position);
+
+        yield return new WaitForSeconds(1f);
+        
+        StartCoroutine(SetNewPosition());
+    }
+    
+
     private bool PlayerInReach()
     {
-        return true;
+        var playerVector = _player.position - transform.position;
+        
+        return playerVector.magnitude < reach;
     }
     
     private bool CanSeePlayer()
     {
+        var playerVector = (_player.position - transform.position).normalized;
+        Debug.DrawRay(transform.position, playerVector * sightRange, Color.yellow);
+        Physics.Raycast(transform.position, playerVector, out RaycastHit hit, sightRange);
         
-        
-        return true;
+        if (hit.collider != null)
+            return hit.collider.gameObject.layer == 7; // Player layer
+        return false;
     }
 
 
