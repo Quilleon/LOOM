@@ -10,7 +10,7 @@ public class EnemyManager : MonoBehaviour
         // Array of all children
         var childNum = transform.childCount;
         spawnPoints = new Transform[childNum];
-        for (int i = 0; i < childNum; i++)
+        for (int i = 1; i < childNum; i++) // Ignore door
             spawnPoints[i] = transform.GetChild(i);
         
         SpawnEnemies();
@@ -22,6 +22,8 @@ public class EnemyManager : MonoBehaviour
         if (AllEnemiesKilled())
         {
             print("All Enemies Killed, opening the gate");
+            transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
         }
     }
 
