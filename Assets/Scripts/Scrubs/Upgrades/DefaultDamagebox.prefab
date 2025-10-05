@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7562043493212756196}
   - component: {fileID: 832329180187300480}
   - component: {fileID: 2838788372552457675}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: DefaultDamagebox
   m_TagString: DamageBox
   m_Icon: {fileID: 0}

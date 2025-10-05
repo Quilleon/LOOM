@@ -26,7 +26,7 @@ public class DamageEffect : MonoBehaviour
 
     void Update()
     {
-        if (_enemyBehaviour.isDead)
+        if (_enemyBehaviour.isDead && _effectsSpawnParent.childCount > 0)
         {
             // Destroy Lingering Effects
             Destroy(_effectsSpawnParent.GetChild(0).gameObject);
@@ -43,6 +43,9 @@ public class DamageEffect : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_enemyBehaviour.isDead)
+            return;
+        
         print("Entered");
         if (other.gameObject.CompareTag("DamageBox"))
         {
