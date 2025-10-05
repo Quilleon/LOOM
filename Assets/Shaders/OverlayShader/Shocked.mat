@@ -43,7 +43,7 @@ Material:
     m_Floats:
     - _FrostAmmount: 0.1
     m_Colors:
-    - _OverlayColor: {r: 0.29732323, g: 0, b: 1, a: 1}
+    - _OverlayColor: {r: 0.40054274, g: 0, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2341366534699001155

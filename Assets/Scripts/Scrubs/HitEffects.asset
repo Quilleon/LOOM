@@ -27,12 +27,12 @@ MonoBehaviour:
   - {fileID: 1473311392452183674, guid: ba6a0c9beb2e2474a8ccdd3e1fe7bafb, type: 3}
   - {fileID: 0}
   lingeringEffectMaterials:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a62b2c62e90b20a4d89965128117df05, type: 2}
+  - {fileID: 2100000, guid: 7a881badfb297b24684fde18c8814735, type: 2}
+  - {fileID: 2100000, guid: 0ed3b8ee1f8508942a7646c795a537a4, type: 2}
+  - {fileID: 2100000, guid: c7db083810e12ff4f886df00ac68e25e, type: 2}
+  - {fileID: 2100000, guid: cc970f31bcdf32c4083113a61ee9ca55, type: 2}
   reactionEffects:
   - {fileID: 0}
   - {fileID: 0}

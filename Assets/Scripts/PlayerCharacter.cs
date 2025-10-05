@@ -93,7 +93,7 @@ public class PlayerCharacter : MonoBehaviour
             StartCoroutine(Punch(_leftUpgrades, _leftArm, _leftAnim, false));
         }
 
-        if (_jumpPressed && IsGrounded())
+        if (_jumpPressed && Grounded())
         {
             print("Jump");
             _rb.linearVelocity += Vector3.up * _jumpForce;
@@ -103,7 +103,6 @@ public class PlayerCharacter : MonoBehaviour
     private float punchLength, punchTime;
     private void LateUpdate()
     {
-        
     }
 
     private IEnumerator Punch(Upgrade[] upgrades, GameObject arm, Animator armAnim, bool isRight)
@@ -152,14 +151,29 @@ public class PlayerCharacter : MonoBehaviour
 
     private void UpdatePhysicsMovement()
     {
+        // No slipping on slopes
+        if (Grounded() && _rb.linearVelocity.y < 0) _rb.linearVelocity = new Vector3(0, 0, 0);
+
+
+        Grounded(out var hit);
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal); print(rotation.eulerAngles);
+        
+        
         var rightMovement = transform.right * _movementVector.x;
         var forwardMovement = transform.forward * _movementVector.y;
-        var xyMovement = (rightMovement + forwardMovement).normalized * _movementSpeed;
+        var xyMovement = (rotation *
+                          rightMovement + rotation *
+                          forwardMovement).normalized * _movementSpeed;
         
+        //Vector3 slopeDirection = Vector3.ProjectOnPlane(xyMovement, hit.normal);
+        
+        //var gravity = -9.81f;
+        
+        //if (!Grounded()) slopeDirection.y += gravity * Time.fixedDeltaTime; else slopeDirection.y = 0;
+        
+        //_rb.linearVelocity = slopeDirection;
         _rb.linearVelocity = new Vector3(xyMovement.x,  _rb.linearVelocity.y, xyMovement.z);
     }
-
-    
     
     #region Camera Look
     
@@ -193,8 +207,40 @@ public class PlayerCharacter : MonoBehaviour
     
     #endregion
 
-    private bool IsGrounded()
+    private bool Grounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.2f, LayerMask.GetMask("Ground"));
+        print("Is Grounded");
+        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.1f, LayerMask.GetMask("Ground"));
+        
+        return hit.collider;
+    }
+    private bool Grounded(out RaycastHit hit)
+    {
+        print("Is Grounded");
+        Physics.Raycast(transform.position, Vector3.down, out RaycastHit _hit, 1.1f, LayerMask.GetMask("Ground"));
+        
+        hit = _hit;
+        
+        return _hit.collider;
+    }
+
+    
+    
+    
+    private bool _collidingWithGround;
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            _collidingWithGround = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            _collidingWithGround = false;
+        }
     }
 }

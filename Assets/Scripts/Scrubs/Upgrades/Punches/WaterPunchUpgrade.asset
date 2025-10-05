@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e51ef31c967f28c4080f3aa3990ac1ac, type: 3}
-  m_Name: ShockUpgrade
-  m_EditorClassIdentifier: Assembly-CSharp::Upgrades
-  atkBonus: 1
+  m_Name: WaterPunchUpgrade
+  m_EditorClassIdentifier: Assembly-CSharp::Upgrade
+  atkBonus: 5
   atkMultiplier: 1
-  spawningPrefab: {fileID: 8702969536512728936, guid: 5f610999e4424d945a3a8750583ead60, type: 3}
-  despawningTime: 0.4
+  spawningPrefab: {fileID: 4133355088545788563, guid: 1e202b75c4635ac42b905430e4811324, type: 3}
+  despawningTime: 0.2
   jumpAbility: 0

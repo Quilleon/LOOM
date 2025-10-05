@@ -15,7 +15,7 @@ public class EnemyBehaviour : MonoBehaviour
     private Transform _player;
     
     private Animator _anim;
-    private SpriteRenderer _renderer;
+    public SpriteRenderer spriteRenderer;
     private Rigidbody _rb;
     private NavMeshAgent _agent;
 
@@ -44,7 +44,7 @@ public class EnemyBehaviour : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         
         _anim = GetComponentInChildren<Animator>();
-        _renderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         _agent = GetComponent<NavMeshAgent>();
         
@@ -203,6 +203,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void ChangeMaterial(Material mat)
     {
-        _renderer.material = mat;
+        spriteRenderer.material = mat;
     }
 }

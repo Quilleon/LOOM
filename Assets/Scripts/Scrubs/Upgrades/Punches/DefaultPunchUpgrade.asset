@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e51ef31c967f28c4080f3aa3990ac1ac, type: 3}
-  m_Name: DefaultUpgrade
+  m_Name: DefaultPunchUpgrade
   m_EditorClassIdentifier: Assembly-CSharp::Upgrade
   atkBonus: 5
   atkMultiplier: 1

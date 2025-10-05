@@ -692,6 +692,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3236061363546699077, guid: 2975c6f1a3feb394c8a1334b44995fd9, type: 3}
+      propertyPath: '_leftUpgrades.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a60714601d8c44b43baef92871836488, type: 2}
+    - target: {fileID: 3236061363546699077, guid: 2975c6f1a3feb394c8a1334b44995fd9, type: 3}
+      propertyPath: '_rightUpgrades.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c908590b55b6a643a5d71f0fd076a8b, type: 2}
+    - target: {fileID: 3581286074556717608, guid: 2975c6f1a3feb394c8a1334b44995fd9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8563422629114269706, guid: 2975c6f1a3feb394c8a1334b44995fd9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
