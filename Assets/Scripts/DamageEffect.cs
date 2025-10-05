@@ -47,7 +47,7 @@ public class DamageEffect : MonoBehaviour
             return;
         
         print("Entered");
-        if (other.gameObject.CompareTag("DamageBox"))
+        if (other.gameObject.CompareTag("DamageBox") && other.transform.parent.CompareTag("PlayerAttack"))
         {
             if (_enemyBehaviour)
             {
