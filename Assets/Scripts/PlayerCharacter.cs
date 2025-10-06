@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerCharacter : MonoBehaviour
@@ -42,6 +44,7 @@ public class PlayerCharacter : MonoBehaviour
     #endregion
     
     [SerializeField] private PlayerInfo playerInfo;
+    [SerializeField] private List<Upgrade> upgrades = new ();
     
     private Rigidbody _rb;
     private Animator _anim;
@@ -57,7 +60,7 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private GameObject _rightArm, _leftArm;
     private Animator _rightAnim, _leftAnim;
     private bool _canRightPunch = true, _canLeftPunch = true;
-    private Upgrade[] _rightUpgrades, _leftUpgrades;
+    private Upgrade _rightUpgrades, _leftUpgrades;
 
     private Transform _effectSpawn;
     
@@ -82,8 +85,15 @@ public class PlayerCharacter : MonoBehaviour
 
         currentHealth = maxHealth;
 
-        _rightUpgrades = playerInfo.rightUpgrades;
-        _leftUpgrades = playerInfo.leftUpgrades;
+        //_rightUpgrades = playerInfo.rightUpgrades;
+        //_leftUpgrades = playerInfo.leftUpgrades;
+
+        var random = Random.Range(0, upgrades.Count);
+        _rightUpgrades = upgrades[random];
+        upgrades.RemoveAt(random);
+        
+        var random2 = Random.Range(0, upgrades.Count);
+        _leftUpgrades = upgrades[random2];
     }
 
     // Update is called once per frame
@@ -123,7 +133,7 @@ public class PlayerCharacter : MonoBehaviour
     {
     }
 
-    private IEnumerator Punch(Upgrade[] upgrades, GameObject arm, Animator armAnim, bool isRight)
+    private IEnumerator Punch(Upgrade upgrades, GameObject arm, Animator armAnim, bool isRight)
     {
         if (isRight) _canRightPunch = false;
         else _canLeftPunch = false;
@@ -134,7 +144,7 @@ public class PlayerCharacter : MonoBehaviour
         yield return new WaitForSeconds(.05f);
         
         var armSpawnPoint = arm.transform.GetChild(0);
-        var ability = Instantiate(upgrades[0].spawningPrefab, armSpawnPoint.position, _camera.rotation);
+        var ability = Instantiate(upgrades.spawningPrefab, armSpawnPoint.position, _camera.rotation);
         ability.tag = "PlayerAttack";
         //StartCoroutine(DestroyAbility(ability, upgrades[0].despawningTime));
         

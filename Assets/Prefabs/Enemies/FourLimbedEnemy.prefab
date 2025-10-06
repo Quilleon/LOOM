@@ -417,7 +417,7 @@ MonoBehaviour:
   enemyAttack: {fileID: 8702969536512728936, guid: 5f610999e4424d945a3a8750583ead60, type: 3}
   enemyAttackSpawn: {fileID: 0}
   spriteRenderer: {fileID: 0}
-  maxHealth: 100
+  maxHealth: 150
   currentHealth: 0
   walkSpeed: 4
   reach: 5

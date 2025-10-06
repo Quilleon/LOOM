@@ -18,6 +18,7 @@ public class EnemyBehaviour : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     private Rigidbody _rb;
     private NavMeshAgent _agent;
+    private BillboardEffect _billboardEffect;
 
     [SerializeField] private float maxHealth = 100, currentHealth;
     
@@ -50,6 +51,8 @@ public class EnemyBehaviour : MonoBehaviour
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         _agent = GetComponent<NavMeshAgent>();
+
+        _billboardEffect = GetComponentInChildren<BillboardEffect>();
         
         _agent.speed = 0;
         _agent.acceleration = 100; // Speed should be instant
@@ -109,7 +112,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (PlayerInReach() && !plannedAttack)
             {
                 plannedAttack = true;
-                var randomDelay = UnityEngine.Random.Range(2, 4);
+                var randomDelay = UnityEngine.Random.Range(3, 5);
                 StartCoroutine(AttackDelay(randomDelay));
             }
         }
@@ -182,9 +185,16 @@ public class EnemyBehaviour : MonoBehaviour
         walking = false;
         
         _anim.Play("AttackWindup");
+
         
         var attackWindUp = .8f;
-        yield return new WaitForSeconds(attackWindUp);
+        
+        
+        yield return new WaitForSeconds(attackWindUp/2);
+        
+        _billboardEffect.enabled = false;
+        
+        yield return new WaitForSeconds(attackWindUp/2);
         
         // Spawn attack box
         if (enemyAttack)
@@ -197,6 +207,8 @@ public class EnemyBehaviour : MonoBehaviour
 
         var attackRecovery = 1f;
         yield return new WaitForSeconds(attackRecovery);
+        
+        _billboardEffect.enabled = true;
         
         plannedAttack = false;
         walking = true;

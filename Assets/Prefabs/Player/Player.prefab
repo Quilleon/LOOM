@@ -226,6 +226,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacter
   playerInfo: {fileID: 11400000, guid: 73177f792a97fa2468a7f909b3c0b75f, type: 2}
+  upgrades:
+  - {fileID: 11400000, guid: 3095cf0d41db2b34889c4c5a5b0f9432, type: 2}
+  - {fileID: 11400000, guid: a60714601d8c44b43baef92871836488, type: 2}
+  - {fileID: 11400000, guid: 7674ff134ab27824fb23c1f9b8bcb8dc, type: 2}
+  - {fileID: 11400000, guid: 3c908590b55b6a643a5d71f0fd076a8b, type: 2}
   maxHealth: 100
   currentHealth: 0
   _movementSpeed: 5
@@ -759,7 +764,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8f938c6aa5c58664b8036e61c0344154, type: 2}
+  - {fileID: -876546973899608171, guid: facbf9095f675d34d880ae8a61b04c01, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

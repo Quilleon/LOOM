@@ -79,6 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
   enemyPrefabs:
   - {fileID: 5463858454118502646, guid: 0bb9f9b78e23db9489cb20e7981a6f98, type: 3}
+  - {fileID: 2301624331402169768, guid: 87fdcc25e024eb14d9c3c2847eaddbaa, type: 3}
 --- !u!1001 &8211496733202411908
 PrefabInstance:
   m_ObjectHideFlags: 0
