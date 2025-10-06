@@ -41,6 +41,7 @@ public class PlayerCharacter : MonoBehaviour
     
     #endregion
     
+    [SerializeField] private PlayerInfo playerInfo;
     
     private Rigidbody _rb;
     private Animator _anim;
@@ -56,7 +57,7 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private GameObject _rightArm, _leftArm;
     private Animator _rightAnim, _leftAnim;
     private bool _canRightPunch = true, _canLeftPunch = true;
-    [SerializeField] private Upgrade[] _rightUpgrades, _leftUpgrades;
+    private Upgrade[] _rightUpgrades, _leftUpgrades;
 
     private Transform _effectSpawn;
     
@@ -80,6 +81,9 @@ public class PlayerCharacter : MonoBehaviour
         Physics.IgnoreLayerCollision(7,8);
 
         currentHealth = maxHealth;
+
+        _rightUpgrades = playerInfo.rightUpgrades;
+        _leftUpgrades = playerInfo.leftUpgrades;
     }
 
     // Update is called once per frame

@@ -92,9 +92,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (!isDead && !activated && CanSeePlayer() && !isFrozen)
         {
             print("Activated");
-            activated = true;
-            walking = true;
-            _agent.speed = walkSpeed;
+            Activate();
         }
 
         if (activated)
@@ -212,6 +210,13 @@ public class EnemyBehaviour : MonoBehaviour
         
         StartCoroutine(SetNewPosition());
     }
+
+    private void Activate()
+    {
+        activated = true;
+        walking = true;
+        _agent.speed = walkSpeed;
+    }
     
 
     private bool PlayerInReach()
@@ -235,8 +240,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (isDead)
-            return;
+        if (isDead) return;
+
+        if (!activated)
+        {
+            Activate(); // If the player manages to shoot them (through walls for example)
+        }
         
         currentHealth -= damage;
     }

@@ -1,17 +1,20 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] enemyPrefabs;
     private Transform[] spawnPoints;
     private Transform[] spawnedEnemies;
+
+    private bool _hasSpawnedEnemies;
     void Start()
     {
         // Array of all children
         var childNum = transform.childCount;
-        spawnPoints = new Transform[childNum];
+        spawnPoints = new Transform[childNum-1];
         for (int i = 1; i < childNum; i++) // Ignore door
-            spawnPoints[i] = transform.GetChild(i);
+            spawnPoints[i-1] = transform.GetChild(i);
         
         SpawnEnemies();
     }
@@ -34,10 +37,15 @@ public class EnemyManager : MonoBehaviour
             int random = Random.Range(0, enemyPrefabs.Length);
             Instantiate(enemyPrefabs[random], point);
         }
+
+        _hasSpawnedEnemies = true;
     }
 
     private bool AllEnemiesKilled()
     {
+        if (!_hasSpawnedEnemies)
+            return false;
+        
         bool allDead = true;
         foreach (var spawn in spawnPoints)
         {
@@ -48,5 +56,10 @@ public class EnemyManager : MonoBehaviour
         }
         
         return allDead;
+    }
+
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

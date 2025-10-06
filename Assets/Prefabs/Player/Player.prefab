@@ -225,14 +225,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d13f67916e8d0a949bfbb5a4e74d2387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacter
+  playerInfo: {fileID: 11400000, guid: 73177f792a97fa2468a7f909b3c0b75f, type: 2}
+  maxHealth: 100
+  currentHealth: 0
   _movementSpeed: 5
   _jumpForce: 4
   _rightArm: {fileID: 7143297797161526704}
   _leftArm: {fileID: 2631232991532383003}
-  _rightUpgrades:
-  - {fileID: 11400000, guid: 3095cf0d41db2b34889c4c5a5b0f9432, type: 2}
-  _leftUpgrades:
-  - {fileID: 11400000, guid: 3095cf0d41db2b34889c4c5a5b0f9432, type: 2}
   _cursorSensitivity: 0.2
   effectsScrub: {fileID: 11400000, guid: f22a6237b85270e49a011889398ff9a5, type: 2}
 --- !u!54 &6924152515009274254
@@ -584,7 +583,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: de17d7677eb2cd64f8936cafecbbe6f0, type: 3}
+  - {fileID: 2100000, guid: 8f938c6aa5c58664b8036e61c0344154, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -760,7 +759,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: de17d7677eb2cd64f8936cafecbbe6f0, type: 3}
+  - {fileID: 2100000, guid: 8f938c6aa5c58664b8036e61c0344154, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

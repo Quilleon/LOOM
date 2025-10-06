@@ -114,7 +114,7 @@ public class DamageEffect : MonoBehaviour
 
     private void CalculateLingeringEffect(LingeringElements lingeringEffect)
     {
-        if (effectsScrub.lingeringEffects[(int)lingeringEffect] == null)
+        if (effectsScrub.lingeringEffects[(int)lingeringEffect] == null && lingeringEffect != LingeringElements.None)
         {
             Debug.LogError("No matching effect to: " + lingeringEffect);
             return;
@@ -144,7 +144,8 @@ public class DamageEffect : MonoBehaviour
         _damageMultiplier = 1;
         
         
-        if (!spawnReaction) return;
+        if (!spawnReaction || lingeringEffect == LingeringElements.None) return;
+        
         
         print("Spawn Lingering effect");
         _activeLingeringEffect = lingeringEffect;
