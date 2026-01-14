@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -81,6 +82,7 @@ public class PlayerCharacter : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         
+        // What layer are we ignoring?
         Physics.IgnoreLayerCollision(7,8);
 
         currentHealth = maxHealth;
@@ -129,9 +131,6 @@ public class PlayerCharacter : MonoBehaviour
     }
 
     private float punchLength, punchTime;
-    private void LateUpdate()
-    {
-    }
 
     private IEnumerator Punch(Upgrade upgrades, GameObject arm, Animator armAnim, bool isRight)
     {
@@ -180,12 +179,17 @@ public class PlayerCharacter : MonoBehaviour
     private void UpdatePhysicsMovement()
     {
         // No slipping on slopes
-        if (Grounded() && _rb.linearVelocity.y < 0) _rb.linearVelocity = new Vector3(0, 0, 0);
+        //if (Grounded() && _rb.linearVelocity.y < 0) _rb.linearVelocity = new Vector3(0, 0, 0);
 
-
-        Grounded(out var hit);
-        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal); //print(rotation.eulerAngles);
         
+        Quaternion rotation = Quaternion.identity;
+        if (Grounded(out var hit))
+        {
+            //rotation = Quaternion.FromToRotation(Vector3.up, hit.normal); //print(rotation.eulerAngles);
+            //print(hit.normal); GetGroundAngle();
+            rotation = GetGroundAngle();
+        }
+
         
         var rightMovement = transform.right * _movementVector.x;
         var forwardMovement = transform.forward * _movementVector.y;
@@ -200,7 +204,7 @@ public class PlayerCharacter : MonoBehaviour
         //if (!Grounded()) slopeDirection.y += gravity * Time.fixedDeltaTime; else slopeDirection.y = 0;
         
         //_rb.linearVelocity = slopeDirection;
-        _rb.linearVelocity = new Vector3(xyMovement.x,  _rb.linearVelocity.y, xyMovement.z);
+        _rb.linearVelocity = new Vector3(xyMovement.x,  rotation == quaternion.identity ? _rb.linearVelocity.y : xyMovement.y, xyMovement.z);
     }
     
     #region Camera Look
@@ -244,12 +248,36 @@ public class PlayerCharacter : MonoBehaviour
     }
     private bool Grounded(out RaycastHit hit)
     {
-        //print("Is Grounded");
-        Physics.Raycast(transform.position, Vector3.down, out RaycastHit _hit, 1.1f, LayerMask.GetMask("Ground"));
+        print("Is Grounded");
+        Physics.Raycast(transform.position, Vector3.down, out RaycastHit _hit, 1.5f, LayerMask.GetMask("Ground"));
         
         hit = _hit;
         
         return _hit.collider;
+    }
+
+    private Quaternion GetGroundAngle()
+    {
+        // Ground hit
+        Grounded(out var hit0);
+        
+        // Directional hit
+        var checkForwardOrigin = transform.position + transform.forward*.3f;
+        Physics.Raycast(checkForwardOrigin, Vector3.down, out RaycastHit hit1, 1.5f, LayerMask.GetMask("Ground"));
+        
+        // Generate a directional vector between the points
+        var v1 = hit1.point - hit0.point; //print(v1);
+        
+        // Directional hit
+        var checkRightOrigin = transform.position + transform.right*.3f;
+        Physics.Raycast(checkRightOrigin, Vector3.down, out RaycastHit hit2, 1.5f, LayerMask.GetMask("Ground"));
+        
+        // Generate a directional vector between the points
+        var v2 = hit2.point - hit0.point; //print(v2);
+
+        var vNormal = Vector3.Cross(v1, v2).normalized; print(vNormal);
+    
+        return Quaternion.FromToRotation(Vector3.up, vNormal);
     }
 
 
